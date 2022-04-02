@@ -1,0 +1,6 @@
+.grandpa{
+    border: 1px solid orange;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+}
