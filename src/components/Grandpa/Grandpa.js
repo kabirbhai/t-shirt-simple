@@ -25,7 +25,7 @@ const Grandpa = () => {
     setHouse(newHouse);
   };
   return (
-    <MyContext.Provider value={house}>
+    <MyContext.Provider value={[house, setHouse]}>
       <div className="grandpa">
         <h1>
           Grandpa <button onClick={inAddHome}>buy</button>
