@@ -36,7 +36,7 @@ const Home = () => {
           />
         ))}
       </div>
-      <div className="cart-container">
+      <div className="cart-container flex justify-center bg-orange-300 rounded-lg sticky top-0 bottom-0 ">
         <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart}></Cart>
       </div>
     </div>

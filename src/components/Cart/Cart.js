@@ -1,4 +1,9 @@
-import React from "react";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+
+import SelectedItems from "../SelectedItems/SelectedItems";
+
 import "./Cart.css";
 
 const Cart = ({ cart, handleRemoveFromCart }) => {
@@ -7,39 +12,47 @@ const Cart = ({ cart, handleRemoveFromCart }) => {
   //2. ternary operator
   //3. && operator (shorthand)
   //4. || operator
+  const [chooses, setChooses] = useState([]);
 
-  // style with variable
-  const orOperatorStyle = {
-    backgroundColor: "gray",
-    color: "white",
-    border: "2px solid red",
-    padding: "8px",
+  const chooseOne = (choose) => {
+    const newChoose = choose[Math.floor(Math.random() * choose.length)];
+    setChooses(newChoose);
   };
 
-  let command;
-  if (cart.length === 0) {
-    command = <p>Please add atleast 1 item</p>;
-  } else if (cart.length === 1) {
-    command = <p>Add more..</p>;
-  } else {
-    command = <p>Thanks for adding item!!</p>;
-  }
   return (
     <div>
-      <h1>Item selected {cart.length}</h1>
+      <h1 className="text-2xl text-orange-700 underline">
+        Selected Item{" "}
+        {cart.length >= 1 && (
+          <strong className="text-black ">{cart.length}</strong>
+        )}
+      </h1>
 
       {cart.map((tShirt) => (
-        <p>
-          {tShirt.name}
-          <button onClick={() => handleRemoveFromCart(tShirt)}>x</button>
-        </p>
+        <SelectedItems
+          key={tShirt._id}
+          tShirt={tShirt}
+          handleRemoveFromCart={handleRemoveFromCart}
+        />
       ))}
-      {/* {command} */}
-      {cart.length === 0 || <p style={orOperatorStyle}>yay!! you are buying</p>}
-      {cart.length === 3 && (
-        <p style={{ backgroundColor: "orange" }}>you are done</p>
+      {cart.length >= 4 && (
+        <div>
+          <button
+            onClick={() => chooseOne(cart)}
+            className="border-2 m-2 p-1 rounded-md hover:bg-purple-600 hover:text-white font-bold "
+          >
+            Choose One
+          </button>
+          <button className="border-2 m-2 p-1 rounded-md hover:bg-purple-600 hover:text-white font-bold ">
+            Remove All
+          </button>
+        </div>
       )}
-      {cart.length !== 3 ? " " : <button>Remove all</button>}
+      <div className="flex justify-between items-center border-2 bg-slate-200 mt-6 p-4 rounded-lg">
+        <img src={chooses.picture} alt="" className="w-8 h-8 rounded-lg" />
+        <p className="text-xl">{chooses.name}</p>
+        <FontAwesomeIcon icon={faCircleCheck}></FontAwesomeIcon>
+      </div>
     </div>
   );
 };
